@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 166 98" role="img" aria-labelledby="title desc">
+  <title id="title">L.B. English Co. monogram</title>
+  <desc id="desc">A simplified L.B. monogram with a fountain-pen and open-page accent.</desc>
+  <g fill="#0d1b34">
+    <path d="M10 8h18v54h30v17H10z"/>
+    <circle cx="70" cy="69" r="9"/>
+    <path fill-rule="evenodd" d="M81 8h34c16 0 27 8 27 21 0 9-5 15-13 19 10 3 16 10 16 21 0 15-12 22-30 22H81zm19 16v17h13c7 0 11-3 11-9s-4-8-11-8zm0 32v19h15c8 0 12-3 12-9 0-7-4-10-12-10z"/>
+    <circle cx="157" cy="69" r="9"/>
+  </g>
+  <path d="M80 91c18-20 38-28 68-12-25-3-46 1-68 12Z" fill="#315bea"/>
+  <path d="M83 95c19-12 40-17 65-8-24-1-44 2-65 8Z" fill="#91e5ff"/>
+  <path d="m80 89 7-33 17-7-5 20-19 20Z" fill="#fff" stroke="#0d1b34" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="94" cy="62" r="3" fill="#0d1b34"/>
+  <path d="m94 65-10 20" fill="none" stroke="#0d1b34" stroke-width="2" stroke-linecap="round"/>
+</svg>
