@@ -2,3 +2,6 @@ node_modules/
 artifacts/
 .codebase-memory/
 dist/
+
+.vercel
+.env*
