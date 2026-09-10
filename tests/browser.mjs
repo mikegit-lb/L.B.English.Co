@@ -99,12 +99,19 @@ try {
   await page.goto(base+'/resources-tr.html?exam=Speaking');
   await page.waitForLoadState('networkidle');
   assert.match(await page.locator('#resource-count').textContent(),/1/);
+  const visibleSave = page.locator('[data-resource-card]:not([hidden]) [data-save]').first();
+  assert.match(await visibleSave.getAttribute('aria-label'),/kaydet/i);
+  await visibleSave.click();
+  assert.match(await visibleSave.getAttribute('aria-label'),/kayıtlardan/i);
   report.workflows.push('Turkish Speaking resource filter uses stable source tags');
 
   await page.goto(base+'/ydt.html');
   await page.locator('#ydt-correct').fill('72');
   await page.locator('#ydt-wrong').fill('8');
   assert.equal(await page.locator('#ydt-net-result').textContent(),'70.00');
+  await page.goto(base+'/ydt-tr.html');
+  await page.locator('#ydt-correct').fill('81');
+  assert.match(await page.locator('#ydt-net-error').textContent(),/Doğru ve yanlış/);
   report.workflows.push('YDT-only practice net calculation');
 
   await page.goto(base+'/ielts.html');
