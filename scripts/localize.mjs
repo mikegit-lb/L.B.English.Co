@@ -51,6 +51,6 @@ export const localizePage = (html, page, locale) => {
       if (attr.name==='href' && !get(node,'data-locale') && get(node,'rel')!=='alternate') attr.value=localizedHref(attr.value,locale);
     }
   });
-  if (missing.size) throw new Error('Missing Turkish messages:\n'+[...missing].map(value=>JSON.stringify(value)).join('\n'));
+  if (missing.size) throw new Error(`Missing ${missing.size} Turkish catalogue entries on ${page}-tr.html: ${[...missing].slice(0,5).join(' | ')}`);
   return serialize(tree);
 };

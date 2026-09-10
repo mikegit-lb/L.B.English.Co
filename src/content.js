@@ -3,6 +3,7 @@ export const resources = [
     "id": "ielts-check",
     "title": "IELTS Writing Self-Check",
     "exam": "IELTS",
+    "examIds": ["IELTS"],
     "type": "web",
     "format": "Web tool · print/PDF",
     "tags": [
@@ -31,6 +32,7 @@ export const resources = [
     "id": "yds-log",
     "title": "YDS Vocabulary Error Log",
     "exam": "YDS · YÖKDİL",
+    "examIds": ["YDS", "YOKDIL"],
     "type": "doc",
     "format": "Editable document",
     "tags": [
@@ -78,6 +80,7 @@ export const resources = [
     "id": "sat-pacing",
     "title": "Digital SAT Pacing Map",
     "exam": "SAT",
+    "examIds": ["SAT"],
     "type": "template",
     "format": "Printable template",
     "tags": [
@@ -96,25 +99,38 @@ export const resources = [
     ]
   },
   {
+    "id": "ydt-net",
+    "title": "YDT Net Takip Çizelgesi",
+    "exam": "YDT",
+    "examIds": ["YDT"],
+    "type": "template",
+    "format": "Editable tracker",
+    "tags": ["Net", "YDT", "Review"],
+    "description": "Record correct and incorrect answers without turning practice net into a placement prediction.",
+    "prompt": "Which question type changed your net today?",
+    "items": ["Date and practice set", "Correct answers", "Incorrect answers", "Practice net", "Most useful error", "Next review action"]
+  },
+  {
     "id": "toefl-notes",
-    "title": "TOEFL Integrated Notes Grid",
+    "title": "TOEFL iBT 2026+ Email Checklist",
     "exam": "TOEFL",
+    "examIds": ["TOEFL"],
     "type": "pdf",
     "format": "Print / save PDF",
     "tags": [
-      "Listening",
-      "Notes",
-      "Integrated tasks"
+      "Writing",
+      "Email",
+      "Current format"
     ],
-    "description": "Separate claims, reasons and examples before building a response.",
-    "prompt": "What relationship must your response explain?",
+    "description": "Plan a complete, clear response for the current TOEFL iBT Write an Email task.",
+    "prompt": "Which request or detail must your email make easy to find?",
     "items": [
-      "Reading claim",
-      "Reading support",
-      "Lecture position",
-      "Lecture reason",
-      "Lecture example",
-      "Connection sentence"
+      "Context and relationship",
+      "Reason for writing",
+      "Request one",
+      "Request two",
+      "Appropriate tone",
+      "Courteous close"
     ]
   },
   {
@@ -165,6 +181,7 @@ export const resources = [
     "id": "exam-audit",
     "title": "Exam Preparation Reality Check",
     "exam": "All exams",
+    "examIds": ["IELTS", "TOEFL", "SAT", "YDT", "YDS", "YOKDIL"],
     "type": "pdf",
     "format": "Print / save PDF",
     "tags": [

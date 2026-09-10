@@ -1,11 +1,13 @@
-import { t, locale, localizeRecord } from './i18n.js';
+import { t, localizeRecord } from './i18n.js';
 import { resources as originalResources } from './content.js';
 const resources=originalResources.map(resource=>localizeRecord(resource,['title','description','prompt','items','tags']));
+const resourceSource = new Map(originalResources.map((resource) => [resource.id, resource]));
 import { styles as s, icon } from './components.js';
 import { escapeHtml as esc } from './lib/core.js';
 import { $, $$, storage, notify, openDialog, downloadText } from './lib/dom.js';
 import { timer } from './components.js';
 import { mountTimer } from './course-tools.js';
+import { examIds } from './exams.js';
 
 const resourceIds = new Set(resources.map((item) => item.id));
 const loadSaved = () => new Set(storage.read('lbFreeSaved', [], (value) => Array.isArray(value) && value.every((id)=>typeof id==='string')).filter((id)=>resourceIds.has(id)));
@@ -61,19 +63,22 @@ export const initLibrary = () => {
   if (!$('#resource-grid')) return;
   const parameters = new URLSearchParams(location.search);
   const initialFilter = parameters.get('exam');
-  let filter = ['IELTS','SAT','Speaking','Saved'].includes(initialFilter) ? initialFilter : 'All';
+  const filterAliases = { 'YÖKDİL': 'YOKDIL' };
+  const canonicalFilter = filterAliases[initialFilter] || initialFilter;
+  let filter = [...examIds,'Speaking','Saved'].includes(canonicalFilter) ? canonicalFilter : 'All';
   let saved = loadSaved();
   $('#resource-search').value = parameters.get('q') || '';
   const requestedType = parameters.get('type');
   if (['web','doc','template','pdf'].includes(requestedType)) $('#resource-type').value=requestedType;
 
   const render = () => {
-    const query = $('#resource-search').value.trim().toLocaleLowerCase(locale);
+    const normalize = (value) => String(value).normalize('NFKC').toLocaleLowerCase('en-US').replaceAll('ı','i').replaceAll('İ','i');
+    const query = normalize($('#resource-search').value.trim());
     const type = $('#resource-type').value;
     let count = 0;
     resources.forEach((resource) => {
-      const haystack = [resource.title,resource.exam,resource.description,...resource.tags].join(' ').toLocaleLowerCase();
-      const goalMatches = filter==='All' || (filter==='Saved' ? saved.has(resource.id) : filter==='Speaking' ? originalResources.find(item=>item.id===resource.id).tags.includes('Speaking') : resource.exam===filter);
+      const haystack = normalize([resource.title,resource.exam,resource.description,...resource.tags].join(' '));
+      const goalMatches = filter==='All' || (filter==='Saved' ? saved.has(resource.id) : filter==='Speaking' ? resourceSource.get(resource.id)?.tags?.includes('Speaking') : Boolean(resource.examIds?.includes(filter)));
       const visible = goalMatches && (type==='all' || resource.type===type) && haystack.includes(query);
       $(`[data-resource-card="${resource.id}"]`).hidden = !visible;
       count += Number(visible);

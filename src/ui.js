@@ -1,6 +1,7 @@
 import { escapeHtml as esc } from './lib/core.js';
 
 import { styles, icon } from './components.js';
+import { examIds, exams } from './exams.js';
 export { styles, icon } from './components.js';
 
 export const link = (label, href, secondary = false) => `<a class="${secondary ? styles.secondary : styles.button}" href="${href}">${label}${icon('arrow')}</a>`;
@@ -8,15 +9,15 @@ export const button = (label, attr = 'data-open="planner"', secondary = false) =
 export const eyebrow = (text) => `<p class="${styles.eyebrow} mb-5 text-muted">${text}</p>`;
 
 export const header = (page) => {
-  const items = [['index', 'Home', 'index.html'], ['ielts', 'IELTS', 'ielts.html'], ['sat', 'SAT', 'sat.html'], ['resources', 'Free resources', 'resources.html'], ['speaking', 'Speaking', 'speaking.html'], ['ydt-yds', 'YDT / YDS', 'ydt-yds.html']];
+  const items = [['index', 'Home', 'index.html'], ['international-exams', 'International exams', 'international-exams.html'], ['turkiye-exams', 'Türkiye exams', 'turkiye-exams.html'], ['resources', 'Free resources', 'resources.html'], ['speaking', 'Speaking', 'speaking.html']];
   const navigation = items.map(([id, label, href]) => `<a href="${href}" ${page === id ? 'aria-current="page"' : ''} class="flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-muted hover:bg-ink/5 hover:text-ink aria-[current=page]:text-ink aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8">${label}</a>`).join('');
   return `<a href="#main" class="fixed left-4 top-3 z-[100] -translate-y-24 rounded-lg bg-ink p-4 text-white focus:translate-y-0">Skip to content</a>
-  <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 bg-ink px-4 py-2.5 text-center text-xs font-medium tracking-wide text-white print:hidden"><div>YOUR NEXT CHAPTER <span class="mx-2 text-lime">/</span> IELTS &amp; SAT, with a plan that fits you. <a href="index.html#programmes" class="ml-3 underline underline-offset-4">Explore the courses ↗</a></div><nav aria-label="Site language" class="flex items-center gap-1"><a data-locale="en" href="${page}.html" lang="en" hreflang="en" aria-current="true" class="grid min-h-9 min-w-11 place-items-center rounded-full border border-white/30 px-3 font-bold aria-[current=true]:bg-lime aria-[current=true]:text-ink" aria-label="Switch to English">EN</a><a data-locale="tr" href="${page}-tr.html" lang="tr" hreflang="tr" aria-current="false" class="grid min-h-9 min-w-11 place-items-center rounded-full border border-white/30 px-3 font-bold aria-[current=true]:bg-lime aria-[current=true]:text-ink" aria-label="Türkçeye geç">TR</a></nav></div>
+  <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 bg-ink px-4 py-2.5 text-center text-xs font-medium tracking-wide text-white print:hidden"><div>MAKE YOUR NEXT MOVE <span class="mx-2 text-lime">/</span> Six routes. One smarter way to prepare. <a href="index.html#exam-routes" class="ml-3 underline underline-offset-4">Choose your route ↗</a></div><nav aria-label="Site language" class="flex items-center gap-1"><a data-locale="en" href="${page}.html" lang="en" hreflang="en" aria-current="true" class="grid min-h-9 min-w-11 place-items-center rounded-full border border-white/30 px-3 font-bold aria-[current=true]:bg-lime aria-[current=true]:text-ink" aria-label="Switch to English">EN</a><a data-locale="tr" href="${page}-tr.html" lang="tr" hreflang="tr" aria-current="false" class="grid min-h-9 min-w-11 place-items-center rounded-full border border-white/30 px-3 font-bold aria-[current=true]:bg-lime aria-[current=true]:text-ink" aria-label="Türkçeye geç">TR</a></nav></div>
   <header lang="en" class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur-md print:hidden">
     <div class="${styles.wrap} flex min-h-21 items-center justify-between gap-4">
       <a href="index.html" aria-label="L.B. English Co. home" class="flex shrink-0 items-center gap-2.5">
         <img src="assets/lb-english-co-mark.svg" alt="" width="42" height="30" class="h-8 w-11">
-        <span class="text-sm font-extrabold tracking-tight">L.B. ENGLISH CO.<span class="mt-0.5 block text-[9px] font-medium uppercase tracking-[0.19em] text-muted">Your private learning studio</span></span>
+        <span class="text-sm font-extrabold tracking-tight">L.B. ENGLISH CO.<span class="mt-0.5 block text-[9px] font-medium uppercase tracking-[0.19em] text-muted">A smarter English studio</span></span>
       </a>
       <nav class="hidden items-center xl:flex" aria-label="Primary navigation">${navigation}</nav>
       <div class="flex items-center gap-2">
@@ -30,9 +31,9 @@ export const header = (page) => {
 
 export const footer = () => `<footer lang="en" class="bg-ink pb-8 pt-16 text-white print:hidden"><div class="${styles.wrap}">
   <div class="grid gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
-    <div><a href="index.html" class="text-xl font-extrabold tracking-tight">L.B. ENGLISH CO.</a><p class="mt-4 max-w-xs text-sm leading-7 text-white/70">Build the English for where you want to go. Personal teaching. Purposeful practice.</p></div>
-    <div><p class="mb-4 text-xs font-bold uppercase tracking-widest text-lime">Choose your route</p><div class="grid gap-3 text-sm"><a href="ielts.html">IELTS coaching</a><a href="sat.html">SAT Reading &amp; Writing</a><a href="ydt-yds.html">YDT · YDS · YÖKDİL</a><a href="speaking.html">Speaking studio</a></div></div>
-    <div><p class="mb-4 text-xs font-bold uppercase tracking-widest text-lime">Keep learning</p><div class="grid justify-items-start gap-3 text-sm"><a href="resources.html">Free resource library</a><button type="button" data-open="planner">Study planner</button><button type="button" data-open="finder">Programme finder</button><button type="button" data-open="diagnostic">Language practice check</button></div></div>
+    <div><a href="index.html" class="text-xl font-extrabold tracking-tight">L.B. ENGLISH CO.</a><p class="mt-4 max-w-xs text-sm leading-7 text-white/70">Build the English that opens your next door. Personal teaching. Deliberate practice.</p></div>
+    <div><p class="mb-4 text-xs font-bold uppercase tracking-widest text-lime">Choose your route</p><div class="grid gap-3 text-sm"><a href="international-exams.html">International exams</a><a href="turkiye-exams.html">Türkiye exams</a><a href="ielts.html">IELTS</a><a href="toefl.html">TOEFL iBT</a><a href="sat.html">SAT Reading &amp; Writing</a></div></div>
+    <div><p class="mb-4 text-xs font-bold uppercase tracking-widest text-lime">Keep learning</p><div class="grid justify-items-start gap-3 text-sm"><a href="ydt.html">YDT</a><a href="yds.html">YDS</a><a href="yokdil.html">YÖKDİL</a><a href="speaking.html">Speaking studio</a><a href="resources.html">Free resource library</a><button type="button" data-open="planner">Study planner</button><button type="button" data-open="finder">Programme finder</button><button type="button" data-open="diagnostic">Language practice check</button></div></div>
     <div><p class="mb-4 text-xs font-bold uppercase tracking-widest text-lime">The studio</p><div class="grid gap-3 text-sm"><a href="index.html#formats">Coaching formats</a><a href="index.html#faq">Your questions</a><a href="legal.html#privacy">Privacy &amp; storage</a><a href="legal.html#terms">Service information</a></div></div>
   </div>
   <div class="flex flex-col justify-between gap-4 border-t border-white/20 pt-7 text-xs leading-6 text-white/70 sm:flex-row"><p>© ${new Date().getFullYear()} L.B. English Co.</p><p class="max-w-2xl sm:text-right">Independent coaching and original practice. Not affiliated with IELTS or College Board. Practice feedback is not an official score. SAT coaching here covers Reading &amp; Writing.</p></div>
@@ -43,21 +44,21 @@ export const dialog = (id, title, contents) => `<dialog lang="en" id="${id}-dial
 
 const field = (label, id, contents) => `<label class="${styles.label}" for="${id}">${label}${contents}</label>`;
 export const dialogs = () => [
-  dialog('planner', 'A little structure. A lot more focus.', `<p class="mb-6 text-sm leading-6 text-muted">Choose your route and a realistic weekly commitment. Your plan stays on this device.</p>
+  dialog('planner', 'A clear plan changes the week.', `<p class="mb-6 text-sm leading-6 text-muted">Choose the goal, set a realistic weekly commitment and leave with a plan you can keep.</p>
     <form id="planner-form" class="grid gap-5 sm:grid-cols-2">
-    ${field('My goal', 'plan-exam', `<select id="plan-exam" class="${styles.input}"><option>IELTS</option><option>SAT</option><option>YDT</option><option>YDS</option><option>Speaking</option><option>General</option></select>`)}
+    ${field('My goal', 'plan-exam', `<select id="plan-exam" class="${styles.input}">${examIds.map((id)=>`<option value="${id}">${exams[id].label}</option>`).join('')}<option value="Speaking">Speaking</option><option value="General">General English</option></select>`)}
     ${field('Time each week', 'plan-hours', `<select id="plan-hours" class="${styles.input}"><option value="4">4 hours · steady</option><option value="8" selected>8 hours · focused</option><option value="14">14 hours · intensive</option></select>`)}
     <button class="${styles.button} sm:col-span-2" type="submit">Build my week ${icon('arrow')}</button></form>
     <div id="plan-output" class="mt-6" aria-live="polite"></div><button type="button" id="download-plan" hidden class="mt-5 ${styles.secondary}">Download my plan ${icon('diagonal')}</button>`),
-  dialog('consultation', 'Start with your goal.', `<p class="mb-5 text-sm leading-6 text-muted">Prepare a coaching brief to keep or share with your tutor. Downloading this brief does not book a session or send an enquiry.</p>
+  dialog('consultation', 'Start with the result you want.', `<p class="mb-5 text-sm leading-6 text-muted">Turn your goal, deadline and sticking point into a focused coaching brief. Downloading it does not book a session or send an enquiry.</p>
     <form id="brief-form" class="grid gap-5">
-    ${field('I want help with', 'brief-goal', `<select id="brief-goal" class="${styles.input}"><option>IELTS</option><option>SAT</option><option>Speaking</option><option>YDT</option><option>YDS</option><option>YÖKDİL</option><option>TOEFL</option><option>Business English</option><option>CEFR English</option></select>`)}
+    ${field('I want help with', 'brief-goal', `<select id="brief-goal" class="${styles.input}">${examIds.map((id)=>`<option value="${id}">${exams[id].label}</option>`).join('')}<option value="Speaking">Speaking</option><option value="Business English">Business English</option><option value="CEFR English">CEFR English</option></select>`)}
     ${field('Preferred format', 'brief-format', `<select id="brief-format" class="${styles.input}"><option>Private 1:1</option><option>VIP group of 3–5</option><option>Exam consultancy</option></select>`)}
     ${field('My goal and timeline', 'brief-notes', `<textarea id="brief-notes" rows="4" maxlength="3000" required class="${styles.input}" placeholder="Where are you now, and what would you like to work towards?"></textarea>`)}
     <p class="text-xs leading-5 text-muted">No personal contact details are needed. Your brief is downloaded as a text file; it is not stored by the site. <a href="legal.html#privacy" class="underline">Privacy information</a></p>
     <button type="submit" class="${styles.button}">Download my coaching brief ${icon('diagonal')}</button></form><p id="brief-status" class="mt-4 text-sm font-semibold" role="status"></p>`),
   dialog('finder', 'Find your starting point.', `<form id="finder-form" class="grid gap-5">
-    ${field('What matters most?', 'finder-goal', `<select id="finder-goal" class="${styles.input}"><option value="IELTS">An IELTS goal</option><option value="SAT">SAT Reading &amp; Writing</option><option value="YDT">YDT / YDS / YÖKDİL</option><option value="Speaking">Speaking with more confidence</option><option value="General">Everyday or professional English</option></select>`)}
+    ${field('What matters most?', 'finder-goal', `<select id="finder-goal" class="${styles.input}"><optgroup label="International exams">${examIds.filter((id)=>exams[id].family==='international').map((id)=>`<option value="${id}">${exams[id].label}</option>`).join('')}</optgroup><optgroup label="Türkiye exams">${examIds.filter((id)=>exams[id].family==='turkiye').map((id)=>`<option value="${id}">${exams[id].label}</option>`).join('')}</optgroup><option value="Speaking">Speaking with more confidence</option><option value="General">Everyday or professional English</option></select>`)}
     ${field('How do you like to learn?', 'finder-format', `<select id="finder-format" class="${styles.input}"><option>Private 1:1</option><option>VIP group of 3–5</option><option>Independent practice with guidance</option></select>`)}
     <button class="${styles.button}" type="submit">Show my route ${icon('arrow')}</button></form><div id="finder-result" class="mt-6" aria-live="polite"></div>`),
   dialog('lesson', 'A small lesson. A useful next step.', '<div id="lesson-body"></div>'),

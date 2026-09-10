@@ -2,6 +2,8 @@ import { chromium } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { mkdir, writeFile } from 'node:fs/promises';
 import assert from 'node:assert/strict';
+import { examIds, exams } from '../src/exams.js';
+const examSlugs = examIds.map((id) => exams[id].slug);
 
 const base=process.env.BASE_URL || 'http://127.0.0.1:8765';
 const browser=await chromium.launch({channel:'chrome',headless:true});
@@ -16,7 +18,7 @@ const closeDialog=async()=>{await page.locator('dialog[open] [data-close]').clic
 try {
   for (const viewport of [{width:1440,height:1000},{width:390,height:844},{width:320,height:740}]) {
     await page.setViewportSize(viewport);
-    for (const name of ['index','ielts','sat','resources','speaking','ydt-yds','legal']) {
+    for (const name of ['index','international-exams','turkiye-exams',...examSlugs,'resources','speaking','ydt-yds','legal']) {
       await page.goto(base+'/'+name+'.html');
       await page.waitForLoadState('networkidle');
       const metrics=await page.evaluate(()=>({width:innerWidth,overflow:document.documentElement.scrollWidth>innerWidth}));
@@ -31,7 +33,8 @@ try {
   await page.setViewportSize({width:390,height:844});
   await page.goto(base+'/index.html');
   await page.locator('#menu-button').click();
-  await page.locator('#mobile-nav').getByRole('link',{name:'SAT',exact:true}).click();
+  await page.locator('#mobile-nav').getByRole('link',{name:'International exams',exact:true}).click();
+  await page.getByRole('link',{name:/Open SAT route/}).click();
   assert.ok(page.url().endsWith('sat.html'));
   await page.locator('[data-lesson]').first().click();
   await page.locator('#lesson-form input[value="2"]').check();
@@ -66,14 +69,15 @@ try {
   report.workflows.push('SAT planner time allocation, changed-input invalidation and download');
 
   await page.goto(base+'/resources.html?exam=SAT');
-  assert.match(await page.locator('#resource-count').textContent(),/^1 /);
+  await page.waitForLoadState('networkidle');
+  assert.match(await page.locator('#resource-count').textContent(),/^2 /);
   await page.locator('[data-save="sat-pacing"]').click();
   await page.locator('[data-filter="Saved"]').click();
   assert.match(await page.locator('#resource-count').textContent(),/^1 /);
   await page.locator('#resource-search').fill('notfoundxyz');
   assert.equal(await page.locator('#resource-empty').isVisible(),true);
   await page.locator('#clear-filters').click();
-  assert.match(await page.locator('#resource-count').textContent(),/^8 /);
+  assert.match(await page.locator('#resource-count').textContent(),/^9 /);
   await page.locator('[data-resource="ielts-check"]').click();
   assert.equal(await page.locator('[data-resource-check]').count(),12);
   await page.locator('[data-resource-check="0"]').check();
@@ -91,6 +95,17 @@ try {
   assert.match(await page.locator('#resource-notes').inputValue(),/my note/);
   await closeDialog();
   report.workflows.push('Library filters, save/remove state, empty recovery, 12 checks, persistent notes, text download and print PDF');
+
+  await page.goto(base+'/resources-tr.html?exam=Speaking');
+  await page.waitForLoadState('networkidle');
+  assert.match(await page.locator('#resource-count').textContent(),/1/);
+  report.workflows.push('Turkish Speaking resource filter uses stable source tags');
+
+  await page.goto(base+'/ydt.html');
+  await page.locator('#ydt-correct').fill('72');
+  await page.locator('#ydt-wrong').fill('8');
+  assert.equal(await page.locator('#ydt-net-result').textContent(),'70.00');
+  report.workflows.push('YDT-only practice net calculation');
 
   await page.goto(base+'/ielts.html');
   for (const name of ['listening','reading','writing','speaking']) await page.locator('#band-'+name).fill('6');
@@ -140,7 +155,7 @@ try {
   await briefDownload;
   assert.match(await page.locator('#brief-status').textContent(),/No enquiry was sent/);
   await closeDialog();
-  await page.locator('#programmes [data-open="finder"]').click();
+  await page.getByRole('button',{name:'Help me choose',exact:true}).first().click();
   await page.locator('#finder-goal').selectOption('SAT');
   await page.locator('#finder-form button').click();
   assert.equal(await page.locator('#finder-result a').getAttribute('href'),'sat.html');
@@ -167,7 +182,7 @@ try {
 
   for (const viewport of [{width:1440,height:1000},{width:390,height:844}]) {
     await page.setViewportSize(viewport);
-    for (const name of ['index','ielts','sat','resources','speaking','ydt-yds','legal']) {
+    for (const name of ['index','international-exams','turkiye-exams',...examSlugs,'resources','speaking','ydt-yds','legal']) {
       await page.goto(base+'/'+name+'-tr.html');
       await page.waitForLoadState('networkidle');
       assert.equal(await page.locator('html').getAttribute('lang'),'tr');
@@ -202,7 +217,7 @@ try {
   await closeDialog();
   await page.goto(base+'/resources-tr.html?exam=SAT');
   await page.waitForLoadState('networkidle');
-  assert.match(await page.locator('#resource-count').textContent(),/^1 ücretsiz kaynak gösteriliyor$/);
+  assert.match(await page.locator('#resource-count').textContent(),/^2 ücretsiz kaynak gösteriliyor$/);
   await page.locator('[data-resource="sat-pacing"]').click();
   assert.match(await page.locator('#resource-dialog h2').textContent(),/Dijital SAT/);
   await closeDialog();

@@ -14,8 +14,10 @@ const renderProgress = () => {
   $$('[data-lesson-label]').forEach((label) => { label.textContent = completed.has(label.dataset.lessonLabel) ? t("Review completed lesson") : t("Open mini-lesson"); });
   const progress = $('#course-progress');
   if (!progress) return;
-  const count = lessons[progress.dataset.exam].filter((lesson) => completed.has(lesson.id)).length;
-  progress.textContent = t('{count} of 4 mini-lessons completed on this device',{count});
+  const selectedLessons = lessons[progress.dataset.exam] || [];
+  const count = selectedLessons.filter((lesson) => completed.has(lesson.id)).length;
+  const total = selectedLessons.length;
+  progress.textContent = t('{count} of {total} mini-lessons completed on this device',{count,total});
 };
 
 export const openLesson = (id) => {
@@ -114,7 +116,7 @@ export const initStudy = () => {
   $('#finder-form').addEventListener('submit', (event) => {
     event.preventDefault();
     const goal = $('#finder-goal').value;
-    const routes = {IELTS:'ielts.html',SAT:'sat.html',YDT:'ydt-yds.html',Speaking:'speaking.html',General:'index.html#formats'};
+    const routes = {IELTS:'ielts.html',TOEFL:'toefl.html',SAT:'sat.html',YDT:'ydt.html',YDS:'yds.html',YÖKDİL:'yokdil.html',YOKDIL:'yokdil.html',Speaking:'speaking.html',General:'index.html#formats'};
     $('#finder-result').innerHTML = `<div class="rounded-xl bg-lime/40 p-5"><h3 class="text-xl font-semibold">${t('{goal} · your starting route',{goal:t(goal==='General'?'Personal English':goal)})}</h3><p class="my-4 text-sm leading-7">${t('Start with a short practice activity, then build a weekly plan. Your format preference: {format}. Discuss suitability with a tutor before booking.',{format:esc(t($('#finder-format').value))})}</p><a href="${route(routes[goal])}" class="${s.button}">${t("Explore my route")} ${icon('arrow')}</a></div>`;
   });
   document.addEventListener('click', (event) => {

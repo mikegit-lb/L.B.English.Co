@@ -1,6 +1,6 @@
 import { readFile, stat } from 'node:fs/promises';
 import assert from 'node:assert/strict';
-const pages=['index','ielts','sat','resources','speaking','ydt-yds','legal'];
+const pages=['index','international-exams','turkiye-exams','ielts','toefl','sat','ydt','yds','yokdil','resources','speaking','ydt-yds','legal'];
 const localizedPages=pages.map((page)=>page+'-tr');
 const sources=new Map();
 for (const page of pages) sources.set(page+'.html',await readFile(page+'.html','utf8'));

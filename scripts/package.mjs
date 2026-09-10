@@ -6,14 +6,14 @@ import path from 'node:path';
 const target=path.resolve('dist');
 const root=process.cwd();
 if (!target.startsWith(root+path.sep)) throw new Error('Build output must remain inside this workspace.');
-const pages=['index','ielts','sat','resources','speaking','ydt-yds','legal'];
+const pages=['index','international-exams','turkiye-exams','ielts','toefl','sat','ydt','yds','yokdil','resources','speaking','ydt-yds','legal'];
 const localizedPages=pages.map(name=>`${name}-tr`);
 const files=[
   ...[...pages,...localizedPages].map(name=>name+'.html'),
   'assets/site.css','assets/hero-coaching.jpg','assets/lb-english-co-mark.svg',
   ...[400,600,700,800].map(weight=>`assets/manrope-latin-${weight}-normal.woff2`),
-  ...['app','components','content','course-tools','essay','i18n','lessons','library','study'].map(name=>`src/${name}.js`),
-  'src/lib/core.js','src/lib/dom.js','src/lib/i18n-core.js','src/locales/tr.js',
+  ...['app','components','content','course-tools','essay','exams','i18n','lessons','library','study'].map(name=>`src/${name}.js`),
+  'src/lib/core.js','src/lib/dom.js','src/lib/i18n-core.js','src/locales/tr.js','src/locales/tr-extra.js',
 ];
 for (const file of files) {
   await mkdir(path.dirname(path.join(target,file)),{recursive:true});

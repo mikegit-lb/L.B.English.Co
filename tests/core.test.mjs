@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { buildSchedule, calculateBand, createCountdown, createStorage, escapeHtml } from '../src/lib/core.js';
 import { lessons } from '../src/lessons.js';
 import { resources } from '../src/content.js';
+import { examIds, exams, familyExamIds } from '../src/exams.js';
 
 test('IELTS averages round at .25 and .75 boundaries without admission predictions', () => {
   assert.equal(calculateBand([6,6,6,7]),6.5);
@@ -14,8 +15,8 @@ test('IELTS averages round at .25 and .75 boundaries without admission predictio
   assert.throws(()=>calculateBand([10,7,8,9]));
 });
 
-test('every study plan uses exactly the chosen weekly time, including SAT', () => {
-  for (const goal of ['IELTS','SAT','YDT','YDS','Speaking','General']) {
+test('every study plan uses exactly the chosen weekly time across six exams', () => {
+  for (const goal of ['IELTS','TOEFL','SAT','YDT','YDS','YOKDIL','Speaking','General']) {
     for (const hours of [4,8,14]) {
       const rows=buildSchedule(goal,hours);
       assert.equal(rows.reduce((sum,row)=>sum+row.minutes,0),hours*60);
@@ -55,10 +56,10 @@ test('blocked, corrupted or wrongly shaped storage never prevents learning', () 
   assert.equal(escapeHtml('<script>"&'), '&lt;script&gt;&quot;&amp;');
 });
 
-test('eight original mini-lessons have unique IDs, valid answers and transfer prompts', () => {
+test('sixteen original mini-lessons have unique IDs, valid answers and transfer prompts', () => {
   const all=Object.values(lessons).flat();
-  assert.equal(all.length,8);
-  assert.equal(new Set(all.map((item)=>item.id)).size,8);
+  assert.equal(all.length,16);
+  assert.equal(new Set(all.map((item)=>item.id)).size,16);
   for (const exam of ['IELTS','SAT']) {
     assert.equal(lessons[exam].length,4);
     assert.equal(new Set(lessons[exam].map((item)=>item.answer)).size,4);
@@ -68,6 +69,16 @@ test('eight original mini-lessons have unique IDs, valid answers and transfer pr
     assert.ok(item.explanation.length>70);
     assert.ok(item.transfer.length>40);
   });
-  assert.equal(resources.length,8);
+  assert.equal(resources.length,9);
   assert.equal(resources.find((item)=>item.id==='ielts-check').items.length,12);
+});
+
+test('exam registry keeps six distinct routes and applicability groups', () => {
+  assert.deepEqual(examIds,['IELTS','TOEFL','SAT','YDT','YDS','YOKDIL']);
+  assert.deepEqual(familyExamIds('international'),['IELTS','TOEFL','SAT']);
+  assert.deepEqual(familyExamIds('turkiye'),['YDT','YDS','YOKDIL']);
+  assert.equal(new Set(examIds.map((id)=>exams[id].route)).size,6);
+  for (const id of examIds) assert.ok(lessons[id]?.length>=2);
+  assert.ok(resources.find((resource)=>resource.examIds?.includes('YDT')));
+  assert.ok(resources.find((resource)=>resource.examIds?.includes('YOKDIL')));
 });

@@ -37,7 +37,7 @@ if (document.body.dataset.page === 'resources') {
   const { initLibrary } = await import('./library.js');
   initLibrary();
 }
-if (['ielts','sat','speaking','ydt-yds'].includes(document.body.dataset.page)) {
+if (['ielts','toefl','sat','ydt','yds','yokdil','speaking','ydt-yds'].includes(document.body.dataset.page)) {
   const { initCourseTools } = await import('./course-tools.js');
   initCourseTools();
 }

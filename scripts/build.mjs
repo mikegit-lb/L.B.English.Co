@@ -4,10 +4,12 @@ import { home } from '../src/pages/home.mjs';
 import { course } from '../src/pages/courses.mjs';
 import { library } from '../src/pages/library.mjs';
 import { speaking, national, legal } from '../src/pages/supporting.mjs';
+import { international, turkiye } from '../src/pages/hubs.mjs';
 import { localizePage } from './localize.mjs';
+import { examIds } from '../src/exams.js';
 
 // Output is directly deployable static HTML; no client rendering is needed for navigation.
-const pages = [home(), course('IELTS'), course('SAT'), library(), speaking(), national(), legal()];
+const pages = [home(), international(), turkiye(), ...examIds.map((id) => course(id)), library(), speaking(), national(), legal()];
 for (const page of pages) {
   const html = layout(page);
   await writeFile(`${page.page}.html`, html);

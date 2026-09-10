@@ -1,4 +1,4 @@
-export const pageNames = ['index','ielts','sat','resources','speaking','ydt-yds','legal'];
+export const pageNames = ['index','international-exams','turkiye-exams','ielts','toefl','sat','ydt','yds','yokdil','resources','speaking','ydt-yds','legal'];
 
 /** Locale changes never rewrite external URLs, query values or fragment IDs. */
 export const localizedHref = (href, locale) => {

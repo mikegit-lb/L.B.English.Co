@@ -1,6 +1,6 @@
 # L.B. English Co.
 
-An IELTS and SAT campaign site with original mini-lessons, personal study tools and a consistent seven-page front end.
+An exam-choice learning studio with original mini-lessons, personal study tools and distinct IELTS, TOEFL iBT, SAT, YDT, YDS and YÖKDİL routes.
 
 ## Run locally
 
@@ -14,7 +14,7 @@ npm start
 
 Open http://127.0.0.1:8765. Serve over HTTP; browser modules are not intended to run by double-clicking an HTML file.
 
-The build compiles Tailwind CSS locally, copies local fonts and generates seven HTML pages. On Windows, a temporary drive alias works around Tailwind's handling of the `#1` directory. The alias is removed when the CSS build finishes. No server framework or styling CDN runs in the browser.
+The build compiles Tailwind CSS locally, copies local fonts and generates 26 localized HTML pages, including two comparison hubs and six dedicated exam routes. On Windows, a temporary drive alias works around Tailwind's handling of the `#1` directory. The alias is removed when the CSS build finishes. No server framework or styling CDN runs in the browser.
 
 ## Edit the site
 

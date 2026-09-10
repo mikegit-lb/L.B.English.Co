@@ -1,5 +1,7 @@
 // Turkish messages shared by generated pages and interactive tools.
-export default {
+import extra from './tr-extra.js';
+
+const base = {
   "IELTS & SAT coaching for your next chapter | L.B. English Co.": "Yeni hedeflerinize IELTS ve SAT hazırlığı | L.B. English Co.",
   "Personal IELTS and SAT Reading & Writing coaching. Try original mini-lessons, build your study plan, and learn in private or small-group classes.": "Kişiye özel IELTS ve SAT Okuma ve Yazma dersleri. Özgün mini dersleri deneyin, çalışma planınızı oluşturun; bire bir veya küçük gruplarda öğrenin.",
   "Skip to content": "İçeriğe geç",
@@ -158,6 +160,7 @@ export default {
   "Prepare a coaching brief to keep or share with your tutor. Downloading this brief does not book a session or send an enquiry.": "Kendiniz için saklayabileceğiniz veya öğretmeninizle paylaşabileceğiniz bir hedef özeti hazırlayın. Bu özeti indirmek ders rezervasyonu yapmaz ve görüşme talebi göndermez.",
   "I want help with": "Destek almak istediğim alan",
   "YÖKDİL": "YÖKDİL",
+  "YOKDIL": "YÖKDİL",
   "TOEFL": "TOEFL",
   "Business English": "İş İngilizcesi",
   "CEFR English": "CEFR İngilizcesi",
@@ -333,6 +336,7 @@ export default {
   "Print / PDF": "Yazdır / PDF",
   "Clear filters": "Filtreleri temizle",
   "8 free resources": "8 ücretsiz kaynak",
+  "9 free resources": "9 ücretsiz kaynak",
   "Save IELTS Writing Self-Check": "IELTS Yazma Kontrol Listesi kaynağını kaydet",
   "Interactive tool": "Etkileşimli araç",
   "IELTS Writing Self-Check": "IELTS Yazma Kontrol Listesi",
@@ -449,7 +453,7 @@ export default {
   "Coaching and booking": "Dersler ve rezervasyon",
   "Private 1:1 teaching, VIP groups of 3–5 and exam consultancy are described as service options. Lesson dates, availability, prices, cancellation conditions and a verified booking channel must be provided before any booking can be confirmed. A downloaded coaching brief is only a document you can keep or share.": "Bire bir dersler, 3–5 kişilik VIP gruplar ve sınav danışmanlığı hizmet seçenekleri olarak tanıtılır. Rezervasyonun kesinleşebilmesi için ders tarihleri, uygunluk, fiyatlar, iptal koşulları ve doğrulanmış rezervasyon kanalı paylaşılmalıdır. İndirilen hedef özeti, saklayabileceğiniz veya paylaşabileceğiniz bir belgedir.",
   "Resources and downloads": "Kaynaklar ve indirmeler",
-  "The eight resources and the mini-lessons on this site are free practice tools. A resource can be edited in your browser, downloaded as a text file, or printed using your browser’s Print / Save as PDF function. There is no paid checkout, premium delivery system or refund transaction on this site.": "Sitedeki sekiz kaynak ve mini dersler ücretsiz çalışma araçlarıdır. Kaynağı tarayıcıda düzenleyebilir, metin dosyası olarak indirebilir veya tarayıcının Yazdır / PDF olarak kaydet işlevini kullanabilirsiniz. Sitede ücretli ödeme, premium ürün teslimatı veya iade işlemi yoktur.",
+  "The eight resources and the mini-lessons on this site are free practice tools. A resource can be edited in your browser, downloaded as a text file, or printed using your browser’s Print / Save as PDF function. There is no paid checkout, premium delivery system or refund transaction on this site.": "Sitedeki dokuz kaynak ve mini dersler ücretsiz çalışma araçlarıdır. Kaynağı tarayıcıda düzenleyebilir, metin dosyası olarak indirebilir veya tarayıcının Yazdır / PDF olarak kaydet işlevini kullanabilirsiniz. Sitede ücretli ödeme, premium ürün teslimatı veya iade işlemi yoktur.",
   "Independent practice and realistic expectations": "Bağımsız alıştırmalar ve gerçekçi beklentiler",
   "The mini-lessons are original practice content. L.B. English Co. is not affiliated with or endorsed by IELTS, College Board or the other exam owners named here. The language practice check cannot establish an official level, score or equivalency. The IELTS calculator only averages and rounds entered scores. Coaching outcomes depend on the learner and are not guaranteed. SAT coaching on this site covers Reading & Writing, not Math.": "Mini dersler özgün alıştırmalardır. L.B. English Co., IELTS, College Board veya adı geçen diğer sınav kuruluşlarıyla bağlantılı değildir ve bu kuruluşlarca onaylanmamıştır. Dil alıştırması resmî seviye, puan veya denklik belirlemez. IELTS hesaplayıcısı girilen puanların ortalamasını alıp yuvarlar. Ders sonuçları öğrenciye bağlıdır; garanti edilmez. SAT dersleri Matematiği değil, Okuma ve Yazmayı kapsar.",
   "Keyboard, screen and motion preferences": "Klavye, ekran ve hareket tercihleri",
@@ -694,5 +698,36 @@ export default {
   "{exam} / {hours} hours per week": "{exam} / haftada {hours} saat",
   "{exam} · {hours} hours this week": "{exam} · bu hafta {hours} saat",
   "{goal} · your starting route": "{goal} · başlangıç rotanız",
-  "{score} of {total} correct in this practice": "Bu pratikte {total} sorudan {score} doğru"
+  "{score} of {total} correct in this practice": "Bu pratikte {total} sorudan {score} doğru",
+  "{count} of {total} mini-lessons completed on this device": "Bu cihazda {total} başlangıç dersinden {count} tanesi tamamlandı",
+  "International exams": "Uluslararası sınavlar",
+  "Türkiye exams": "Türkiye sınavları",
+  "International Exams": "Uluslararası sınavlar",
+  "Türkiye Exams": "Türkiye sınavları",
+  "TOEFL iBT": "TOEFL iBT",
+  "YÖKDİL": "YÖKDİL",
+  "YDT": "YDT",
+  "YDS": "YDS",
+  "Choose the exam that matches the outcome.": "Sonuca uygun sınavı seçin.",
+  "Choose the English exam that fits your next chapter": "Sonraki adımınıza uygun İngilizce sınavını seçin",
+  "A private English learning studio": "Özel İngilizce öğrenme stüdyosu",
+  "Six exams serve different purposes. Choose the route that matches your goal, then use focused practice and a study plan that fits your week.": "Altı sınavın amacı farklıdır. Hedefinize uygun rotayı seçin; odaklı pratik ve haftanıza uygun bir çalışma planı kullanın.",
+  "One useful distinction": "Yararlı bir ayrım",
+  "exam routes": "sınav rotası",
+  "starter lessons": "başlangıç dersi",
+  "local study plan": "cihazdaki çalışma planı",
+  "Compare all three": "Üçünü karşılaştır",
+  "Open TOEFL iBT route": "TOEFL iBT rotasını aç",
+  "Open YÖKDİL route": "YÖKDİL rotasını aç",
+  "Open YDT route": "YDT rotasını aç",
+  "Open YDS route": "YDS rotasını aç",
+  "Open IELTS route": "IELTS rotasını aç",
+  "Open SAT route": "SAT rotasını aç",
+  "Try a free starter": "Ücretsiz başlangıç pratiğini dene",
+  "Current-format starters": "Güncel format başlangıçları",
+  "Field-aware reading": "Alan duyarlı okuma",
+  "Error analysis": "Hata analizi",
+  "Net calculator": "Net hesaplama",
 };
+
+export default { ...base, ...extra };

@@ -110,4 +110,16 @@ export const initCourseTools = () => {
     ['#correct-count','#wrong-count'].forEach((id) => { $(id).setAttribute('aria-describedby','net-error'); $(id).addEventListener('input',handleNet); });
     handleNet();
   }
+  if ($('#ydt-correct')) {
+    const handleYdtNet = () => {
+      const correct = Number($('#ydt-correct').value);
+      const wrong = Number($('#ydt-wrong').value);
+      const valid = [correct, wrong].every((value) => Number.isInteger(value) && value >= 0 && value <= 80) && correct + wrong <= 80 && $('#ydt-correct').value !== '' && $('#ydt-wrong').value !== '';
+      $('#ydt-net-error').textContent = valid ? '' : 'Correct and incorrect answers must be whole numbers from 0 to 80, with a maximum total of 80.';
+      $('#ydt-net-result').textContent = valid ? (correct - wrong / 4).toFixed(2) : '—';
+      ['#ydt-correct','#ydt-wrong'].forEach((id) => { $(id).setAttribute('aria-invalid',String(!valid)); $(id).setAttribute('aria-describedby','ydt-net-error'); });
+    };
+    ['#ydt-correct','#ydt-wrong'].forEach((id) => $(id).addEventListener('input',handleYdtNet));
+    handleYdtNet();
+  }
 };
